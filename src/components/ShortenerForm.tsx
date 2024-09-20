@@ -35,6 +35,7 @@ import UrlsList from "./UrlsList";
 import { formatShortenedUrl } from "@/lib/formatter";
 import { cn } from "@/lib/utils";
 import SocialMedia from "./SocialMedia";
+import SkeletonLoading from "./SkeletonLoading";
 
 interface IUrl {
   id: string;
@@ -224,16 +225,19 @@ const ShortenerForm = () => {
         </CardHeader>
         <Separator className="mb-8" />
         <CardContent className="grid gap-4">
-          <ul>
-            {urls.map(url => (
-              <UrlsList key={url.id} url={url} />
-            ))}
-          </ul>
+          {urls.length === 0 ? (
+            <SkeletonLoading></SkeletonLoading>
+          ) : (
+            <ul>
+              {urls.map(url => (
+                <UrlsList key={url.id} url={url} />
+              ))}
+            </ul>
+          )}
         </CardContent>
         <CardFooter>
           <div className="w-full flex items-center space-x-4 rounded-md border p-4">
             <Share2 className="w-3 h-3 md:w-5 md:h-5 shrink-0" />
-
             <div className="flex-1 flex items-center justify-evenly">
               <SocialMedia></SocialMedia>
             </div>
