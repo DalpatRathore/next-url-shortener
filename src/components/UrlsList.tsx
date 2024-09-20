@@ -30,7 +30,7 @@ const UrlsList = ({
 
   return (
     <>
-      <li className="flex flex-col md:flex-row items-start gap-0">
+      <li className="flex items-start gap-0">
         <div className="flex items-start justify-start flex-1 gap-2">
           <div className="flex flex-col items-center justify-center gap-4 translate-y-3">
             <LinkIcon className="w-4 h-4"></LinkIcon>
@@ -53,26 +53,24 @@ const UrlsList = ({
             <p className="text-sm text-muted-foreground break-all">
               {originalUrl + originalUrl}
             </p>
-            <p className="inline-flex items-center gap-2 bg-gray-200 dark:bg-gray-900 px-2 py-1 text-xs mt-2 rounded-sm">
-              <CalendarIcon className="h-4 w-4" />
-              {formatDateTime(createdAt)}
-            </p>
+            <div className="flex items-center justify-start gap-2">
+              <p className="inline-flex items-center gap-2 shadow bg-gray-200 dark:bg-gray-900 px-2 py-1 text-xs mt-2 rounded-sm">
+                <CalendarIcon className="h-4 w-4" />
+                {formatDateTime(createdAt)}
+              </p>
+              <p className="inline-flex items-center gap-2  shadow bg-gray-200 dark:bg-gray-900 px-2 py-1 text-xs mt-2 rounded-sm">
+                <EyeIcon className="w-4 h-4" />
+                {views}
+                <span className="sr-only">Views</span>
+              </p>
+            </div>
           </div>
         </div>
-        <div className="w-full md:w-20 flex md:flex-col gap-3 justify-end">
-          <Button
-            variant={"outline"}
-            className="ml-2 cursor-not-allowed"
-            title="url visited"
-          >
-            {views}
-            <EyeIcon className="w-4 h-4 ml-2" />
-            <span className="sr-only">Views</span>
-          </Button>
+        <div className="flex justify-end">
           <Button
             type="button"
-            // variant={"outline"}
-            // size={"icon"}
+            variant={"outline"}
+            size={"icon"}
             onClick={handleCopy}
             className="ml-2"
             title="Copy URL"
