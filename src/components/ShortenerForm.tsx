@@ -28,12 +28,13 @@ import {
   LinkIcon,
   LoaderCircle,
   RefreshCcw,
-  Share,
+  Share2,
 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import UrlsList from "./UrlsList";
 import { formatShortenedUrl } from "@/lib/formatter";
 import { cn } from "@/lib/utils";
+import SocialMedia from "./SocialMedia";
 
 interface IUrl {
   id: string;
@@ -231,14 +232,10 @@ const ShortenerForm = () => {
         </CardContent>
         <CardFooter>
           <div className="w-full flex items-center space-x-4 rounded-md border p-4">
-            <Share />
-            <div className="flex-1 space-y-1">
-              <p className="text-sm font-medium leading-none">
-                Push Notifications
-              </p>
-              <p className="text-sm text-muted-foreground">
-                Send notifications to device.
-              </p>
+            <Share2 className="w-3 h-3 md:w-5 md:h-5 shrink-0" />
+
+            <div className="flex-1 flex items-center justify-evenly">
+              <SocialMedia></SocialMedia>
             </div>
           </div>
         </CardFooter>
