@@ -167,7 +167,7 @@ const ShortenerForm = () => {
                         </Button>
                       )}
                     </div>
-                    <FormMessage />
+                    <FormMessage className="text-center" />
                   </FormItem>
                 )}
               />

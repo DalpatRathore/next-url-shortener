@@ -30,7 +30,7 @@ const UrlsList = ({
 
   return (
     <>
-      <li className="flex flex-col md:flex-row items-start gap-3">
+      <li className="flex flex-col md:flex-row items-start gap-0">
         <div className="flex items-start justify-start flex-1 gap-2">
           <div className="flex flex-col items-center justify-center gap-4 translate-y-3">
             <LinkIcon className="w-4 h-4"></LinkIcon>
@@ -40,7 +40,7 @@ const UrlsList = ({
             <Button
               variant={"link"}
               asChild
-              className="text-blue-500 hover:text-blue-600 p-0 text-sm lg:text-lg"
+              className="text-blue-500 hover:text-blue-600 p-0 text-sm lg:text-base"
             >
               <Link
                 href={shortenedUrl}
@@ -53,7 +53,7 @@ const UrlsList = ({
             <p className="text-sm text-muted-foreground break-all">
               {originalUrl + originalUrl}
             </p>
-            <p className="inline-flex items-center gap-2 bg-gray-200 px-2 py-1 text-xs mt-2 rounded-sm">
+            <p className="inline-flex items-center gap-2 bg-gray-200 dark:bg-gray-900 px-2 py-1 text-xs mt-2 rounded-sm">
               <CalendarIcon className="h-4 w-4" />
               {formatDateTime(createdAt)}
             </p>

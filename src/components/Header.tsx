@@ -1,6 +1,7 @@
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
+import ThemeToggle from "./ThemeToggle";
 const Header = () => {
   return (
     <header className="border-b shadow-sm">
@@ -17,6 +18,7 @@ const Header = () => {
               <AvatarImage src="/profile-pic.png" alt="Dalpat Rathore" />
               <AvatarFallback>DR</AvatarFallback>
             </Avatar>
+            <ThemeToggle></ThemeToggle>
           </div>
         </div>
       </div>

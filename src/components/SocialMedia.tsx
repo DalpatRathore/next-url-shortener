@@ -49,7 +49,7 @@ const SocialMedia = () => {
         </svg>
       </span>
 
-      <span className="[&>svg]:h-4 [&>svg]:w-4 md:[&>svg]:h-5 md:[&>svg]:w-5 [&>svg]:fill-black">
+      <span className="[&>svg]:h-4 [&>svg]:w-4 md:[&>svg]:h-5 md:[&>svg]:w-5 [&>svg]:fill-black dark:[&>svg]:fill-white">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"
