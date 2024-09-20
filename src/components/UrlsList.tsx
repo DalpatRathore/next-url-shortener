@@ -3,6 +3,7 @@ import { CalendarIcon, Copy, EyeIcon, LinkIcon } from "lucide-react";
 import { Separator } from "./ui/separator";
 import { formatDateTime, formatShortenedUrl } from "@/lib/formatter";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 type UrlsListProps = {
   url: {
@@ -22,7 +23,7 @@ const UrlsList = ({
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(shortenedUrl);
-      alert("URL copied to clipboard!");
+      toast.success("URL copied to clipboard!");
     } catch (error) {
       console.error("Failed to copy the URL", error);
     }

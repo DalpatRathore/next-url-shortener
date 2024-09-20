@@ -35,6 +35,7 @@ import { formatShortenedUrl } from "@/lib/formatter";
 import { cn } from "@/lib/utils";
 import SocialMedia from "./SocialMedia";
 import SkeletonLoading from "./SkeletonLoading";
+import toast from "react-hot-toast";
 
 interface IUrl {
   id: string;
@@ -87,6 +88,7 @@ const ShortenerForm = () => {
       if (result) {
         setOriginalUrl(result.originalUrl);
         setShortenedUrl(result.shortCode);
+        toast.success("Successfully shortened!");
       }
       await fetchUrls();
     } catch (error) {
@@ -101,7 +103,7 @@ const ShortenerForm = () => {
     if (shortenedUrl) {
       try {
         await navigator.clipboard.writeText(formatShortenedUrl(shortenedUrl));
-        alert("URL copied to clipboard!");
+        toast.success("URL copied to clipboard!");
       } catch (error) {
         console.error("Failed to copy the URL", error);
       }
