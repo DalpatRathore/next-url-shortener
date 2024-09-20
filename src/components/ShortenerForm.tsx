@@ -7,6 +7,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -21,9 +22,25 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "./ui/separator";
-import { Copy, ExternalLink, Link, RefreshCcw } from "lucide-react";
-import { useState } from "react";
-import { formatShortenedUrl } from "@/lib/format-shortened-url";
+import {
+  BellIcon,
+  Copy,
+  ExternalLink,
+  Link,
+  LoaderCircle,
+  RefreshCcw,
+} from "lucide-react";
+import { useEffect, useState } from "react";
+import UrlsList from "./UrlsList";
+import { formatShortenedUrl } from "@/lib/formatter";
+
+interface IUrl {
+  id: string;
+  originalUrl: string;
+  shortCode: string;
+  createdAt: Date;
+  views: number;
+}
 
 const urlSchema = z.object({
   url: z.string().url({
@@ -32,6 +49,8 @@ const urlSchema = z.object({
 });
 
 const ShortenerForm = () => {
+  const [urls, setUrls] = useState<IUrl[]>([]);
+  const [loading, setLoading] = useState(false);
   const [shortenedUrl, setShortenedUrl] = useState<string | null>(null);
   const [originalUrl, setOriginalUrl] = useState<string | null>(null);
   const form = useForm<z.infer<typeof urlSchema>>({
@@ -40,10 +59,19 @@ const ShortenerForm = () => {
       url: shortenedUrl || "",
     },
   });
-
-  const onSubmit = async (values: z.infer<typeof urlSchema>) => {
+  const fetchUrls = async () => {
     try {
-      const response = await fetch("/api/short-url", {
+      const res = await fetch("/api/get-urls");
+      const data = await res.json();
+      setUrls(data?.data || []);
+    } catch (error) {
+      console.error("Failed to fetch URLs", error);
+    }
+  };
+  const onSubmit = async (values: z.infer<typeof urlSchema>) => {
+    setLoading(true);
+    try {
+      const response = await fetch("/api/create-url", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,10 +79,15 @@ const ShortenerForm = () => {
         body: JSON.stringify({ url: values.url }),
       });
       const result = await response.json();
-      setOriginalUrl(result.originalUrl);
-      setShortenedUrl(result.shortenedUrl);
+      if (result) {
+        setOriginalUrl(result.originalUrl);
+        setShortenedUrl(result.shortenedUrl);
+      }
+      await fetchUrls();
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -62,13 +95,18 @@ const ShortenerForm = () => {
   const handleCopy = async () => {
     if (shortenedUrl) {
       try {
-        await navigator.clipboard.writeText(shortenedUrl);
+        await navigator.clipboard.writeText(formatShortenedUrl(shortenedUrl));
         alert("URL copied to clipboard!");
       } catch (error) {
         console.error("Failed to copy the URL", error);
       }
     }
   };
+
+  // Fetch URLs on component mount using useEffect
+  useEffect(() => {
+    fetchUrls();
+  }, []);
 
   return (
     <>
@@ -145,26 +183,71 @@ const ShortenerForm = () => {
                   </Button>
                 </p>
               )}
-              {shortenedUrl && originalUrl ? (
+              {originalUrl ? (
                 <Button
                   type="button"
                   className="w-full"
                   size={"lg"}
-                  variant={"outline"}
+                  variant={"secondary"}
                   onClick={() => window.location.reload()}
                 >
                   Shorten Another URL{" "}
                   <RefreshCcw className="w-4 h-4 ml-2"></RefreshCcw>
                 </Button>
               ) : (
-                <Button type="submit" className="w-full" size={"lg"}>
-                  Shorten URL{" "}
-                  <ExternalLink className="w-4 h-4 ml-2"></ExternalLink>
+                <Button
+                  type="submit"
+                  className="w-full"
+                  size={"lg"}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <>
+                      Processing{" "}
+                      <LoaderCircle className="w-5 h-5 ml-2 animate-spin"></LoaderCircle>
+                    </>
+                  ) : (
+                    <>
+                      {" "}
+                      Shorten URL{" "}
+                      <ExternalLink className="w-4 h-4 ml-2"></ExternalLink>
+                    </>
+                  )}
                 </Button>
               )}
             </form>
           </Form>
         </CardContent>
+      </Card>
+
+      <Card className="w-full max-w-3xl mx-auto">
+        <CardHeader>
+          <CardTitle>Recently Shortened URLs</CardTitle>
+          <CardDescription>
+            You have {urls.length} shortened Urls.
+          </CardDescription>
+        </CardHeader>
+        <Separator className="mb-5"></Separator>
+        <CardContent className="grid gap-4">
+          <ul>
+            {urls.map(url => (
+              <UrlsList key={url.id} url={url}></UrlsList>
+            ))}
+          </ul>
+        </CardContent>
+        <CardFooter className="">
+          <div className="w-full flex items-center space-x-4 rounded-md border p-4">
+            <BellIcon />
+            <div className="flex-1 space-y-1">
+              <p className="text-sm font-medium leading-none">
+                Push Notifications
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Send notifications to device.
+              </p>
+            </div>
+          </div>
+        </CardFooter>
       </Card>
     </>
   );

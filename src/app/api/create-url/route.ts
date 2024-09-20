@@ -26,8 +26,7 @@ export async function POST(request: NextRequest) {
 
     // If the URL is already shortened, return the existing shortcode
     if (existingUrl) {
-      return NextResponse.json({  originalUrl: existingUrl.originalUrl,
-        shortenedUrl: existingUrl.shortCode, });
+      return NextResponse.json(existingUrl);
     }
 
     // Save the original URL and shortcode to the database
@@ -40,10 +39,7 @@ export async function POST(request: NextRequest) {
 
 
     // Return the generated shortcode
-    return NextResponse.json({ 
-      originalUrl: shortenedUrl.originalUrl,
-      shortenedUrl: shortenedUrl.shortCode,
-       });
+    return NextResponse.json(shortenedUrl);
   } catch (error) {
     // Handle validation and database errors
     if (error instanceof z.ZodError) {
