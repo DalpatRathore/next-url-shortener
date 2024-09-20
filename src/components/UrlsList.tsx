@@ -1,7 +1,8 @@
 import { Button } from "./ui/button";
-import { CalendarIcon, Copy, EyeIcon, Link } from "lucide-react";
+import { CalendarIcon, Copy, EyeIcon, LinkIcon } from "lucide-react";
 import { Separator } from "./ui/separator";
 import { formatDateTime, formatShortenedUrl } from "@/lib/formatter";
+import Link from "next/link";
 
 type UrlsListProps = {
   url: {
@@ -32,7 +33,7 @@ const UrlsList = ({
       <li className="flex flex-col md:flex-row items-start gap-3">
         <div className="flex items-start justify-start flex-1 gap-2">
           <div className="flex flex-col items-center justify-center gap-4 translate-y-3">
-            <Link className="w-4 h-4"></Link>
+            <LinkIcon className="w-4 h-4"></LinkIcon>
             <div className="flex h-2 w-2 rounded-full bg-sky-500" />
           </div>
           <div className="w-full">
@@ -41,9 +42,13 @@ const UrlsList = ({
               asChild
               className="text-blue-500 hover:text-blue-600 p-0 text-sm lg:text-lg"
             >
-              <a href={shortenedUrl} target="_blank" rel="noopener noreferrer">
-                {shortenedUrl}
-              </a>
+              <Link
+                href={shortenedUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {shortenedUrl}{" "}
+              </Link>
             </Button>
             <p className="text-sm text-muted-foreground break-all">
               {originalUrl + originalUrl}
