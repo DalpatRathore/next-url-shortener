@@ -27,7 +27,6 @@ import {
   ExternalLink,
   LinkIcon,
   LoaderCircle,
-  RefreshCcw,
   Share2,
 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
@@ -185,10 +184,10 @@ const ShortenerForm = () => {
                   onClick={() => {
                     setShortenedUrl(null);
                     setOriginalUrl(null);
-                    form.reset(); // Reset the form without page reload
+                    form.reset();
                   }}
                 >
-                  Shorten Another URL <RefreshCcw className="w-4 h-4 ml-2" />
+                  Shorten Another URL <ExternalLink className="w-4 h-4 ml-2" />
                 </Button>
               ) : (
                 <Button
@@ -199,8 +198,8 @@ const ShortenerForm = () => {
                 >
                   {loading ? (
                     <>
-                      Processing{" "}
-                      <LoaderCircle className="w-5 h-5 ml-2 animate-spin" />
+                      Processing
+                      <LoaderCircle className="w-4 h-4 ml-2 animate-spin" />
                     </>
                   ) : (
                     <>
@@ -220,7 +219,11 @@ const ShortenerForm = () => {
             Recently Shortened URLs
           </CardTitle>
           <CardDescription>
-            You have {urls.length} shortened URLs.
+            You have
+            <span className="border px-[5px] shadow-sm rounded-sm text-base bg-muted mx-1">
+              {urls.length}/5
+            </span>
+            shortened URLs.
           </CardDescription>
         </CardHeader>
         <Separator className="mb-8" />

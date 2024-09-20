@@ -54,11 +54,11 @@ const UrlsList = ({
               {originalUrl + originalUrl}
             </p>
             <div className="flex items-center justify-start gap-2">
-              <p className="inline-flex items-center gap-2 shadow bg-gray-200 dark:bg-gray-900 px-2 py-1 text-xs mt-2 rounded-sm">
+              <p className="inline-flex items-center gap-2 shadow bg-muted px-2 py-1 text-xs mt-2 rounded-sm">
                 <CalendarIcon className="h-4 w-4" />
                 {formatDateTime(createdAt)}
               </p>
-              <p className="inline-flex items-center gap-2  shadow bg-gray-200 dark:bg-gray-900 px-2 py-1 text-xs mt-2 rounded-sm">
+              <p className="inline-flex items-center gap-2  shadow bg-muted px-2 py-1 text-xs mt-2 rounded-sm">
                 <EyeIcon className="w-4 h-4" />
                 {views}
                 <span className="sr-only">Views</span>
