@@ -29,6 +29,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(existingUrl);
     }
 
+    // Limit the number of stored URLs to 3
+    const urlCount = await prisma.url.count();
+    if (urlCount >= 3) {
+      // Find the oldest URL and delete it
+      const oldestUrl = await prisma.url.findFirst({
+        orderBy: { createdAt: 'asc' }, // Adjust this to your field for tracking creation time
+      });
+      if (oldestUrl) {
+        await prisma.url.delete({
+          where: { id: oldestUrl.id },
+        });
+      }
+    }
+
     // Save the original URL and shortcode to the database
     const shortenedUrl = await prisma.url.create({
       data: {
@@ -36,7 +50,6 @@ export async function POST(request: NextRequest) {
         shortCode,
       },
     });
-
 
     // Return the generated shortcode
     return NextResponse.json(shortenedUrl);

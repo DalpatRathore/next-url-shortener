@@ -81,7 +81,7 @@ const UrlsList = ({
           </Button>
         </div>
       </li>
-      <Separator className="my-5"></Separator>
+      <Separator className="my-3"></Separator>
     </>
   );
 };

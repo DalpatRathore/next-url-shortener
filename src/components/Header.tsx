@@ -5,7 +5,7 @@ import ThemeToggle from "./ThemeToggle";
 const Header = () => {
   return (
     <header className="border-b shadow-sm">
-      <div className="mx-auto max-w-screen-xl px-4 py-8">
+      <div className="mx-auto max-w-screen-xl px-4 py-5">
         <div className="flex gap-4 items-center justify-between">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-indigo-800 via-yellow-500 to-indigo-800 inline-block text-transparent bg-clip-text capitalize">

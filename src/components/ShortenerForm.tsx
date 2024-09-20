@@ -88,7 +88,7 @@ const ShortenerForm = () => {
       if (result) {
         setOriginalUrl(result.originalUrl);
         setShortenedUrl(result.shortCode);
-        toast.success("Successfully shortened!");
+        toast.success("URL successfully shortened!");
       }
       await fetchUrls();
     } catch (error) {
@@ -125,7 +125,7 @@ const ShortenerForm = () => {
             Shorten your URL and share them easily
           </CardDescription>
         </CardHeader>
-        <Separator className="mb-8" />
+        <Separator className="mb-5" />
         <CardContent>
           <Form {...form}>
             <form
@@ -141,7 +141,7 @@ const ShortenerForm = () => {
                       <LinkIcon className="w-4 h-4 mr-2" />
                       <FormControl>
                         <Input
-                          placeholder="https://example.com/?search=social&id=66eba6af-0540"
+                          placeholder="https://example.com"
                           {...field}
                           className={cn(
                             shortenedUrl && "text-blue-600 font-bold"
@@ -221,14 +221,12 @@ const ShortenerForm = () => {
             Recently Shortened URLs
           </CardTitle>
           <CardDescription>
-            You have
-            <span className="border px-[5px] shadow-sm rounded-sm text-base bg-muted mx-1">
-              {urls.length}/5
-            </span>
-            shortened URLs.
+            App stores only the
+            <strong className="mx-1">3</strong>
+            most recent shortened URL entries.
           </CardDescription>
         </CardHeader>
-        <Separator className="mb-8" />
+        <Separator className="mb-5" />
         <CardContent className="grid gap-4">
           {urls.length === 0 ? (
             <SkeletonLoading></SkeletonLoading>
