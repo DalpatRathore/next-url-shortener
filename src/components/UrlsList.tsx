@@ -33,8 +33,8 @@ const UrlsList = ({
     <>
       <li className="flex items-start gap-0">
         <div className="flex items-start justify-start flex-1 gap-2">
-          <div className="flex flex-col items-center justify-center gap-4 translate-y-3">
-            <LinkIcon className="w-4 h-4"></LinkIcon>
+          <div className="flex flex-col items-center justify-center gap-4 translate-y-4">
+            <LinkIcon className="w-3 h-3"></LinkIcon>
             <div className="flex h-2 w-2 rounded-full bg-sky-500" />
           </div>
           <div className="w-full">
@@ -51,9 +51,14 @@ const UrlsList = ({
                 {shortenedUrl}{" "}
               </Link>
             </Button>
-            <p className="text-sm text-muted-foreground break-all">
-              {originalUrl + originalUrl}
-            </p>
+            <div className="group relative">
+              <p className="text-xs md:text-sm text-muted-foreground line-clamp-1 transition-all duration-200">
+                {originalUrl}
+              </p>
+              <span className="absolute left-0 top-full mt-1 hidden group-hover:inline-block bg-gray-800 dark:bg-gray-100 text-white dark:text-black text-xs px-2 py-1 rounded">
+                {originalUrl}
+              </span>
+            </div>
             <div className="flex items-center justify-start gap-2">
               <p className="inline-flex items-center gap-2 shadow bg-muted px-2 py-1 text-xs mt-2 rounded-sm">
                 <CalendarIcon className="h-4 w-4" />
@@ -81,7 +86,7 @@ const UrlsList = ({
           </Button>
         </div>
       </li>
-      <Separator className="my-3"></Separator>
+      <Separator className="my-4"></Separator>
     </>
   );
 };

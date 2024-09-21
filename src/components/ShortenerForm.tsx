@@ -25,6 +25,7 @@ import { Separator } from "./ui/separator";
 import {
   Copy,
   ExternalLink,
+  FileSliders,
   LinkIcon,
   LoaderCircle,
   Share2,
@@ -115,7 +116,7 @@ const ShortenerForm = () => {
   }, [fetchUrls]);
 
   return (
-    <div className="flex flex-col lg:flex-row items-start justify-center gap-5">
+    <div className="flex flex-col lg:flex-row items-start justify-center gap-8">
       <Card className="w-full max-w-3xl mx-auto">
         <CardHeader className="text-center">
           <CardTitle className="text-xl md:text-2xl">
@@ -173,9 +174,15 @@ const ShortenerForm = () => {
                 )}
               />
               {originalUrl && (
-                <p className="text-xs md:text-sm text-muted-foreground">
-                  Original URL: {originalUrl}
-                </p>
+                <div className="group relative">
+                  <p className="text-xs md:text-sm text-muted-foreground line-clamp-1 transition-all duration-200 flex items-center justify-start gap-2">
+                    <FileSliders className="w-4 h-4"></FileSliders>{" "}
+                    {originalUrl}
+                  </p>
+                  <span className="absolute left-6 top-full mt-1 hidden group-hover:inline-block bg-gray-800 dark:bg-gray-100 text-white dark:text-black text-xs px-2 py-1 rounded">
+                    {originalUrl}
+                  </span>
+                </div>
               )}
               {shortenedUrl ? (
                 <Button
