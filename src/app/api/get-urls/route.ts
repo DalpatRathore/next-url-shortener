@@ -1,6 +1,9 @@
 import prisma from "@/lib/db";
 import { NextResponse } from "next/server";
 
+// Force dynamic rendering for this API
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const urls = await prisma.url.findMany({
@@ -8,8 +11,7 @@ export async function GET() {
       take: 5, // Only fetch the latest 5 URLs
     });
 
-    // Return the URLs in a structured format
-    return NextResponse.json({ data: urls });
+    return NextResponse.json({ data: urls }, { status: 200 });
   } catch (error) {
     console.error("Error fetching URLs:", error);
     return NextResponse.json(
