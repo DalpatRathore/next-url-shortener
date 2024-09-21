@@ -1,7 +1,8 @@
 import React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
+import DeveloperAccount from "../../DeveloperAccount";
+
 const Header = () => {
   return (
     <header className="border-b shadow-sm">
@@ -14,10 +15,7 @@ const Header = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <Avatar>
-              <AvatarImage src="/dalpatrathore.jpg" alt="Dalpat Rathore" />
-              <AvatarFallback>DR</AvatarFallback>
-            </Avatar>
+            <DeveloperAccount></DeveloperAccount>
             <ThemeToggle></ThemeToggle>
           </div>
         </div>
