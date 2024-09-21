@@ -37,6 +37,7 @@ import { cn } from "@/lib/utils";
 import SocialMedia from "./SocialMedia";
 import SkeletonLoading from "./SkeletonLoading";
 import toast from "react-hot-toast";
+import TypewriterText from "./TypewriterText";
 
 interface IUrl {
   id: string;
@@ -117,110 +118,114 @@ const ShortenerForm = () => {
 
   return (
     <div className="flex flex-col lg:flex-row items-start justify-center gap-8">
-      <Card className="w-full max-w-3xl mx-auto">
-        <CardHeader className="text-center">
-          <CardTitle className="text-xl md:text-2xl">
-            Create Shortened URL
-          </CardTitle>
-          <CardDescription>
-            Shorten your URL and share them easily
-          </CardDescription>
-        </CardHeader>
-        <Separator className="mb-5" />
-        <CardContent>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="w-full space-y-6"
-            >
-              <FormField
-                control={form.control}
-                name="url"
-                render={({ field }) => (
-                  <FormItem>
-                    <div className="flex items-center justify-center">
-                      <LinkIcon className="w-4 h-4 mr-2" />
-                      <FormControl>
-                        <Input
-                          placeholder="https://example.com"
-                          {...field}
-                          className={cn(
-                            shortenedUrl && "text-blue-600 font-bold"
-                          )}
-                          value={
-                            (shortenedUrl &&
-                              formatShortenedUrl(shortenedUrl)) ||
-                            field.value
-                          }
-                          readOnly={!!shortenedUrl}
-                          aria-label="Shortened URL input"
-                        />
-                      </FormControl>
-                      {shortenedUrl && (
-                        <Button
-                          type="button"
-                          variant="outline"
-                          onClick={handleCopy}
-                          className="ml-2"
-                          title="Copy URL"
-                        >
-                          <Copy className="w-4 h-4" />
-                          <span className="sr-only">Copy</span>
-                        </Button>
-                      )}
-                    </div>
-                    <FormMessage className="text-center" />
-                  </FormItem>
-                )}
-              />
-              {originalUrl && (
-                <div className="group relative">
-                  <p className="text-xs md:text-sm text-muted-foreground line-clamp-1 transition-all duration-200 flex items-center justify-start gap-2">
-                    <FileSliders className="w-4 h-4"></FileSliders>{" "}
-                    {originalUrl}
-                  </p>
-                  <span className="absolute left-6 top-full mt-1 hidden group-hover:inline-block bg-gray-800 dark:bg-gray-100 text-white dark:text-black text-xs px-2 py-1 rounded">
-                    {originalUrl}
-                  </span>
-                </div>
-              )}
-              {shortenedUrl ? (
-                <Button
-                  type="button"
-                  className="w-full"
-                  size="lg"
-                  variant="secondary"
-                  onClick={() => {
-                    setShortenedUrl(null);
-                    setOriginalUrl(null);
-                    form.reset();
-                  }}
-                >
-                  Shorten Another URL <ExternalLink className="w-4 h-4 ml-2" />
-                </Button>
-              ) : (
-                <Button
-                  type="submit"
-                  className="w-full"
-                  size="lg"
-                  disabled={loading}
-                >
-                  {loading ? (
-                    <>
-                      Processing
-                      <LoaderCircle className="w-4 h-4 ml-2 animate-spin" />
-                    </>
-                  ) : (
-                    <>
-                      Shorten URL <ExternalLink className="w-4 h-4 ml-2" />
-                    </>
+      <div className="w-full flex flex-col items-center jusitfy-center gap-5">
+        <Card className="w-full max-w-3xl mx-auto">
+          <CardHeader className="text-center">
+            <CardTitle className="text-xl md:text-2xl">
+              Create Shortened URL
+            </CardTitle>
+            <CardDescription>
+              Shorten your URL and share them easily
+            </CardDescription>
+          </CardHeader>
+          <Separator className="mb-5" />
+          <CardContent>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="w-full space-y-6"
+              >
+                <FormField
+                  control={form.control}
+                  name="url"
+                  render={({ field }) => (
+                    <FormItem>
+                      <div className="flex items-center justify-center">
+                        <LinkIcon className="w-4 h-4 mr-2" />
+                        <FormControl>
+                          <Input
+                            placeholder="https://example.com"
+                            {...field}
+                            className={cn(
+                              shortenedUrl && "text-blue-600 font-bold"
+                            )}
+                            value={
+                              (shortenedUrl &&
+                                formatShortenedUrl(shortenedUrl)) ||
+                              field.value
+                            }
+                            readOnly={!!shortenedUrl}
+                            aria-label="Shortened URL input"
+                          />
+                        </FormControl>
+                        {shortenedUrl && (
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={handleCopy}
+                            className="ml-2"
+                            title="Copy URL"
+                          >
+                            <Copy className="w-4 h-4" />
+                            <span className="sr-only">Copy</span>
+                          </Button>
+                        )}
+                      </div>
+                      <FormMessage className="text-center" />
+                    </FormItem>
                   )}
-                </Button>
-              )}
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
+                />
+                {originalUrl && (
+                  <div className="group relative">
+                    <p className="text-xs md:text-sm text-muted-foreground line-clamp-1 transition-all duration-200 flex items-center justify-start gap-2">
+                      <FileSliders className="w-4 h-4"></FileSliders>{" "}
+                      {originalUrl}
+                    </p>
+                    <span className="absolute left-6 top-full mt-1 hidden group-hover:inline-block bg-gray-800 dark:bg-gray-100 text-white dark:text-black text-xs px-2 py-1 rounded">
+                      {originalUrl}
+                    </span>
+                  </div>
+                )}
+                {shortenedUrl ? (
+                  <Button
+                    type="button"
+                    className="w-full"
+                    size="lg"
+                    variant="secondary"
+                    onClick={() => {
+                      setShortenedUrl(null);
+                      setOriginalUrl(null);
+                      form.reset();
+                    }}
+                  >
+                    Shorten Another URL{" "}
+                    <ExternalLink className="w-4 h-4 ml-2" />
+                  </Button>
+                ) : (
+                  <Button
+                    type="submit"
+                    className="w-full"
+                    size="lg"
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <>
+                        Processing
+                        <LoaderCircle className="w-4 h-4 ml-2 animate-spin" />
+                      </>
+                    ) : (
+                      <>
+                        Shorten URL <ExternalLink className="w-4 h-4 ml-2" />
+                      </>
+                    )}
+                  </Button>
+                )}
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+        <TypewriterText></TypewriterText>
+      </div>
 
       <Card className="w-full max-w-3xl mx-auto">
         <CardHeader className="text-center">
