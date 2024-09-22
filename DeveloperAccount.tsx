@@ -38,6 +38,7 @@ const DeveloperAccount = () => {
               </DropdownMenuShortcut>
             </a>
           </DropdownMenuItem>
+          <DropdownMenuSeparator />
 
           <DropdownMenuItem asChild>
             <a

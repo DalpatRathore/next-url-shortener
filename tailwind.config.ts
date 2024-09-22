@@ -57,7 +57,7 @@ const config: Config = {
   			sm: 'calc(var(--radius) - 4px)'
   		}
   	}
-  },
+  },/* eslint-disable @typescript-eslint/no-require-imports */
   plugins: [require("tailwindcss-animate")],
 };
 export default config;
