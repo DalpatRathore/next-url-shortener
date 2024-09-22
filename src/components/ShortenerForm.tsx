@@ -119,7 +119,7 @@ const ShortenerForm = () => {
   return (
     <div className="flex flex-col lg:flex-row items-start justify-center gap-8">
       <div className="w-full flex flex-col items-center jusitfy-center gap-5">
-        <Card className="w-full max-w-3xl mx-auto">
+        <Card className="w-full max-w-3xl mx-auto h-[18rem]">
           <CardHeader className="text-center">
             <CardTitle className="text-xl md:text-2xl">
               Create Shortened URL

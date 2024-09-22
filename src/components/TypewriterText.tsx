@@ -40,7 +40,7 @@ const TypewriterText = () => {
     },
   ];
   return (
-    <div className="w-full flex flex-col items-center justify-center h-44 md:h-[20rem] border rounded-lg shadow">
+    <div className="w-full max-w-3xl flex flex-col items-center justify-center h-44 md:h-[18rem] border rounded-lg shadow">
       <p className="text-neutral-600 dark:text-neutral-200 text-xs sm:text-base  ">
         The road to freedom starts from here
       </p>
